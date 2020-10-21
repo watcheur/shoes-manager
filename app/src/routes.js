@@ -11,30 +11,28 @@ import ItemsOverview from "./views/ItemsOverview";
 import ItemDetail from "./views/ItemDetail.js";
 
 export default [
-  {
-    path: "/login",
-    exact: true,
-    layout: EmptyLayout,
-    component: LoginView
-  },
-  {
-    path: "/",
-    exact: true,
-    layout: DefaultLayout,
-    component: () => <Redirect to="/items" />
-  },
-  {
-    path: "/items",
-    exact: true,
-    admin: true,
-    layout: DefaultLayout,
-    component: ItemsOverview
-  },
-  {
-    path: "/items/:itemId",
-    exact: true,
-    admin: true,
-    layout: DefaultLayout,
-    component: ItemDetail
-  }
+	{
+		path: "/login",
+		layout: EmptyLayout,
+		component: LoginView
+	},
+	{
+		path: "/items",
+		exact: true,
+		isPrivate: true,
+		layout: DefaultLayout,
+		component: ItemsOverview
+	},
+	{
+		path: "/items/:itemId",
+		isPrivate: true,
+		layout: DefaultLayout,
+		component: ItemDetail
+	},
+	{
+		path: "/",
+		exact: true,
+		layout: DefaultLayout,
+		component: () => <Redirect to="/items" />
+	}
 ];

@@ -13,10 +13,11 @@ class Api {
             this.endpoint = local_endpoint;
     }
 
-    Get = (endpoint, args) => {
+    Get = (endpoint, headers, args) => {
         return this.axios.get(`${this.endpoint}${endpoint}`, {
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                ...headers
             },
             params: {
                 ...args
@@ -24,10 +25,11 @@ class Api {
         });
     }
 
-    Delete = (endpoint, args) => {
+    Delete = (endpoint, headers, args) => {
         return this.axios.delete(`${this.endpoint}${endpoint}`, {
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                ...headers
             },
             params: {
                 ...args
@@ -35,12 +37,13 @@ class Api {
         });
     }
 
-    Post = (endpoint, data, args) => {
+    Post = (endpoint, headers, data, args) => {
         console.log("data", data);
         return this.axios.post(`${this.endpoint}${endpoint}`, {...data }, {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...headers
             },
             params: {
                 ...args
@@ -48,11 +51,12 @@ class Api {
         });
     }
 
-    Put = (endpoint, data, args) => {
+    Put = (endpoint, headers, data, args) => {
         return this.axios.put(`${this.endpoint}${endpoint}`, {...data }, {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...headers
             },
             params: {
                 ...args
