@@ -33,7 +33,7 @@ class SidebarMainNavbar extends React.Component {
 						<div className="d-table m-auto">
 							{!hideLogoText && (
 								<span className="d-none d-md-inline ml-1">
-								Shoes Manager
+									Shoes Manager
 								</span>
 							)}
 						</div>
