@@ -13,7 +13,7 @@ import { AppGateway } from './app.gateway';
 
 @Module({
 	imports: [
-		MongooseModule.forRoot('mongodb+srv://mathieu:watcheur@cluster0.atpjr.mongodb.net/nest?retryWrites=true&w=majority'),
+		MongooseModule.forRoot('mongodb://localhost/test'),
 		AuthModule,
 		UsersModule,
 		ItemsModule
