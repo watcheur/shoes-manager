@@ -1,0 +1,3 @@
+[submodule "app/src/shards-dashboard"]
+	path = app/src/shards-dashboard
+	url = https://github.com/DesignRevision/shards-dashboard
