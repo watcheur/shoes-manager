@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     createToken(user: User) {
-        const expiresIn = 3600;
+        const expiresIn = 3600 * 24;
 
         const accessToken = jwt.sign(
             {

@@ -18,12 +18,15 @@ async function bootstrap() {
 	SwaggerModule.setup('api', app, document);
 	
 	app.useGlobalPipes(new ValidationPipe());
+	app.enableCors({
+		origin: 'http://localhost:3000'
+	});
 	app.use(helmet());
 	app.use(rateLimit({
 		windowMs: 15 * 60 * 1000, // 15 minutes
-		max: 100 // 100 request per window
+		max: 1500 // 100 request per window
 	}))
 	
-	await app.listen(3000);
+	await app.listen(3005);
 }
 bootstrap();

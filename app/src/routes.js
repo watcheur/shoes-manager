@@ -17,17 +17,16 @@ export default [
 		component: LoginView
 	},
 	{
-		path: "/items",
-		exact: true,
-		isPrivate: true,
-		layout: DefaultLayout,
-		component: ItemsOverview
-	},
-	{
 		path: "/items/:itemId",
 		isPrivate: true,
 		layout: DefaultLayout,
 		component: ItemDetail
+	},
+	{
+		path: "/items",
+		isPrivate: true,
+		layout: DefaultLayout,
+		component: ItemsOverview
 	},
 	{
 		path: "/",

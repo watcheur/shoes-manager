@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Container, Button, Row, Col, Card, CardBody, CardFooter, CardHeader, Form, FormInput } from "shards-react";
+import { useHistory } from "react-router-dom";
 
 import { loginUser, useAuthState, useAuthDispatch } from "../context";
 
 function Login(props) {
+    let history = useHistory();
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
 
@@ -12,7 +14,7 @@ function Login(props) {
     const { loading, errorMessage, token } = useAuthState();
 
     if (token)
-        props.history.push('/');
+        history.push('/');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -21,7 +23,8 @@ function Login(props) {
             let response = await loginUser(dispatch, username, password);
             if (!response.user)
                 return;
-            props.history.push('/');
+
+            setTimeout(() => history.push('/items'), 100);
         } catch (error) {
             console.log(error);
         }

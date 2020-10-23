@@ -9,6 +9,7 @@ import { ItemsService } from './items/items.service';
 import { ItemsController } from './items/items.controller';
 import { ItemsModule } from './items/items.module';
 import { TransformInterceptor } from './interceptors/transform.interceptor';
+import { AppGateway } from './app.gateway';
 
 @Module({
 	imports: [
@@ -23,7 +24,8 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
 		{
 			provide: APP_INTERCEPTOR,
 			useClass: TransformInterceptor
-		}
+		},
+		AppGateway
 	],
 })
 export class AppModule {}

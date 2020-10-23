@@ -5,15 +5,17 @@ import { ItemDto } from './items.dto';
 import { ItemFindQuery, ItemsService } from './items.service';
 import { Item } from './schemas/item.schema';
 import { Colors, Materials, Types } from '../data';
+import { AppGateway } from 'src/app.gateway';
 
 @ApiTags('items')
 @Controller('items')
 export class ItemsController {
     constructor(
-        private readonly itemsService: ItemsService
+        private readonly itemsService: ItemsService,
+        private readonly appGateway: AppGateway
     ) {}
 
-    //@UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     @ApiQuery({ name: "name", required: false })
     @ApiQuery({ name: "brand", required: false })
     @ApiQuery({ name: "color", required: false, enum: Colors })
@@ -42,7 +44,16 @@ export class ItemsController {
     @ApiOperation({ summary: 'Create a new item' })
     @Post()
     public async create(@Body() newItem: ItemDto) : Promise<Item> {
-        return await this.itemsService.create(newItem);
+        const res = await this.itemsService.create(newItem);
+
+        this.appGateway.emit('ITEMS', {
+            action: 'ITEM_CREATED',
+            data: {
+                item: res
+            }
+        });
+
+        return res;
     }
 
     @UseGuards(AuthGuard('jwt'))
@@ -55,7 +66,16 @@ export class ItemsController {
             throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
         await this.itemsService.update(id, newValue);
 
-        return await this.itemsService.findById(id);
+        const newItem = await this.itemsService.findById(id);
+
+        this.appGateway.emit('ITEMS', {
+            action: 'ITEM_UPDATED',
+            data: {
+                item: newItem
+            }
+        });
+
+        return newItem;
     }
 
     @UseGuards(AuthGuard('jwt'))
@@ -66,6 +86,15 @@ export class ItemsController {
         const item = await this.itemsService.findById(id);
         if (!item)
             throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
-        return await this.itemsService.delete(id);
+        const res = await this.itemsService.delete(id);
+
+        this.appGateway.emit('ITEMS', {
+            action: 'ITEM_DELETED',
+            data: {
+                item: item
+            }
+        });
+
+        return res;
     }
 }

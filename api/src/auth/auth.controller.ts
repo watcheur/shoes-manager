@@ -52,7 +52,10 @@ export class AuthController {
             if (!await user.comparePassword(login.password))
                 throw new HttpException('Login failed', HttpStatus.BAD_REQUEST);
             
-            return this.authService.createToken(user);
+            return {
+                ...this.authService.createToken(user),
+                user: user
+            }
         }
     }
 }

@@ -3,12 +3,14 @@ import React, { useReducer } from "react";
 let user = "";
 let token = "";
 
-const storageValue = localStorage.getItem('currentUser');
+const storageUser = localStorage.getItem('user');
+const storageToken = localStorage.getItem('token');
 
-if (storageValue) {
-    user = JSON.parse(storageValue).user || "";
-    token = JSON.parse(storageValue).auth_token || "";
-}
+if (storageUser)
+    user = JSON.parse(storageUser) || "";
+if (storageToken)
+    token = storageToken || "";
+    
 
 export const initialState = {
     userDetails: user || "",
@@ -28,7 +30,7 @@ export const AuthReducer = (initialState, action) => {
             return {
                 ...initialState,
                 user: action.payload.user,
-                token: action.payload.auth_token,
+                token: action.payload.accessToken,
                 loading: false
             };
         case "LOGOUT":

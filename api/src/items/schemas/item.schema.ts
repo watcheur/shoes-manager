@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
+import { Colors, Materials, Types } from "src/data";
 
 export type ItemDocument = Item & Document;
 
@@ -11,13 +12,13 @@ export class Item {
     @Prop({ required: true })
     brand: string;
     
-    @Prop({ required: true, enum: [ 'WHITE', 'BLACK', 'RED', 'ORANGE', 'BLUE', 'GREEN' ] })
+    @Prop({ required: true, enum: Colors})
     color: string;
 
-    @Prop({ required: true, enum: [ 'SPORT', 'CASUAL', 'CEREMONY' ] })
+    @Prop({ required: true, enum: Types })
     type: string;
 
-    @Prop({ required: true, enum: [ 'LEATHER', 'CLOTH', 'PLASTIC' ] })
+    @Prop({ required: true, enum: Materials })
     material: string;
 
     @Prop([String])
