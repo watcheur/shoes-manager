@@ -1,13 +1,13 @@
 import { Model } from 'mongoose';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument, UserSchema } from 'src/users/schemas/user.schema';
+import { User, UserDocument, UserSchema } from './schemas/user.schema';
 import { CreateUserDto } from './users.dto';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectModel(User.name) private userModel: Model<UserDocument>
+        @InjectModel(User.name) private userModel: Model<User>
     ){}
 
     public async findAll(): Promise<User[]> {
@@ -23,7 +23,7 @@ export class UsersService {
     }
 
     public async create(user: CreateUserDto): Promise<User> {
-        const createdUser = new this.userModel(CreateUserDto);
+        const createdUser = new this.userModel(user);
         return createdUser.save();
     }
 }
